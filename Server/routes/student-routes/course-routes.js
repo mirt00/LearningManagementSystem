@@ -4,4 +4,4 @@ const router = express.Router();
 
 router.get('/get', getAllStudentViewCourses);
 
-//This is a change
+module.exports = router;

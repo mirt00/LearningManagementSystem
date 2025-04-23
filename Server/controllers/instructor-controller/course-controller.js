@@ -15,14 +15,6 @@ const addNewCourse = async(req, res)=>{
             });
         }
 
-        res.status(201).json({
-            success: true,
-            message: 'Course saved successfully',
-    
-            data:saveCourse
-        })
-
-
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -79,32 +71,34 @@ const getCourseDetailsByID = async(req, res)=>{
     }
 };
 
-const UpdateCourseByID = async(req, res)=>{
+const updateCourseByID = async (req, res) => {
     try {
         const { id } = req.params;
-        const UpdateCourseByID= req.body;
+        const updatedCourseData = req.body;
 
-        const UpdateCourse = await Course.findByIdAndUpdate(id,UpdatedCourseData, {new: true});
-        if(!UpdatedCourse){
+        const updatedCourse = await Course.findByIdAndUpdate(id, updatedCourseData, { new: true });
+
+        if (!updatedCourse) {
             return res.status(404).json({
-            success: false,
-            message: " Course not found!",
-        })
+                success: false,
+                message: "Course not found!",
+            });
         }
+
         res.status(200).json({
             success: true,
-            message: 'Course updated Successfully',
-            data: UpdatedCourse
-        })
-        
+            message: 'Course updated successfully',
+            data: updatedCourse
+        });
+
     } catch (e) {
         console.log(e);
         res.status(500).json({
             success: false,
-            message: "Some error occured!",
+            message: "Some error occurred!",
         });
-        
     }
-}
+};
 
-module.exports = {addNewCourse, getAllCourse, UpdateCourseByID,getCourseDetailsByID}
+
+module.exports = {addNewCourse, getAllCourse, updateCourseByID,getCourseDetailsByID}

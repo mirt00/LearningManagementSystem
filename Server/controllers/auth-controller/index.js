@@ -24,6 +24,8 @@ const registerUser = async(req,res)=>{
         message: 'User registerd successfully!'
     })
 };
+
+
 const loginUser = async(req,res)=>{
     const {userEmail, password}= req.body;
     const checkUser = await User.findOne({userEmail});
