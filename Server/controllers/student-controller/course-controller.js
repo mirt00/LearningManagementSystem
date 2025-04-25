@@ -1,5 +1,5 @@
 const Course = require('../../models/Course');
-
+const StudentCourses = require('../../models/StudentCourses');  
 
 const getAllStudentViewCourses = async (req, res) => {
     try {
@@ -58,7 +58,7 @@ const getAllStudentViewCourses = async (req, res) => {
 const getAllStudentViewCoursesDetails = async (req, res) => {
     try {
 
-        const {id}= req.params;
+        const {id, studentId}= req.params;
         const courseDetails = await Course.findById(id);
         if(!courseDetails){
             return res.status(404).json({
@@ -67,10 +67,15 @@ const getAllStudentViewCoursesDetails = async (req, res) => {
                 data: null
             })
         }
+        // Check if the course is already purchased by the student
+        const studentCourses = await StudentCourses.findOne({ userId: studentId});
+        console.log(studentCourses, "studentCourses");
+        const ifStudentAlreadyBoughtCurrentCourse=studentCourses.courses.findIndex(item=>item.courseId=== id)-1;
         res.status(200).json({
             success: true,
             message: 'Course details found successfully',
             data: courseDetails,
+            coursePurchasedId: ifStudentAlreadyBoughtCurrentCourse ? id : null,
         })
     } catch (e) {
         console.log(e);
@@ -80,7 +85,21 @@ const getAllStudentViewCoursesDetails = async (req, res) => {
         })
     }
 };
+ const checkCoursePurchasedInfo = async (req,res)=>{
+    try {
+        const {id, studentId}= req.params;
+        const studentCourse = await StudentCourses.findOne({ userId: studentId});
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: 'Some error occured!',
+        })
+    }
+}
 module.exports = {
     getAllStudentViewCourses,
-    getAllStudentViewCoursesDetails
+    getAllStudentViewCoursesDetails,
+    checkCoursePurchasedInfo,
 };
