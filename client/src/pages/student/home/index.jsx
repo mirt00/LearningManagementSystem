@@ -77,7 +77,7 @@ function StudentHomePage() {
         </div>
         <div className="lg:w-full mb-8 lg:mb-0">
           <img
-            src={banner}
+            // src={}
             alt="Banner"
             className="w-full h-auto rounded-lg shadow-lg"
           />

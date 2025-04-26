@@ -69,26 +69,26 @@ function App() {
       <Route
         path="/"
         element={
-          <RouteGuard
-            element={<StudentViewCommonLayout />}
-            authenticated={auth?.authenticate}
-            user={auth?.user}
-          />
+          
+            <StudentViewCommonLayout />
+            // authenticated={auth?.authenticate}
+            // user={auth?.user}
+          
         }
       >
         <Route index element={<StudentHomePage />} />
-        <Route path="home" element={<StudentHomePage />} />
-        <Route path="courses" element={<StudentViewCoursesPage />} />
+        <Route path="/home" element={<StudentHomePage />} />
+        <Route path="/courses" element={<StudentViewCoursesPage />} />
         <Route
-          path="course/details/:id"
+          path="/course/details/:id"
           element={<StudentViewCourseDetailsPage />}
         />
         <Route
-          path="course-progress/:id"
+          path="/course-progress/:id"
           element={<StudentViewCourseProgressPage />}
         />
-        <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
-        <Route path="student-courses" element={<StudentCoursesPage />} />
+        <Route path="/payment-return" element={<PaypalPaymentReturnPage />} />
+        <Route path="/student-courses" element={<StudentCoursesPage />} />
       </Route>
 
       {/* 404 Not Found */}
